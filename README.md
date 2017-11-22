@@ -6,22 +6,22 @@
     A copy of the license is included in the section entitled "GNU
     Free Documentation License".
 
-International Board Card Format, Draft I
+#International Board Card Format, Draft I
 
---INTRODUCTION--
+##INTRODUCTION
 
 This document describe how a text file should be formatted in order to be declared compliant to IBCF standard.
 
---CHAPTER I: LAYERS--
+##CHAPTER I: LAYERS
 
 The file can be formatted in several way. In all of them, shall be composed by a single JSON Object, having as first property "layer" an integer number, that indicates whose will be the other properties and their content.
 The layer number goes from 1 to 3. The layer 1 is the one most similar to the way a card is stored in a cdb file, the layer 3 to the way a human would read a physical card.
 
 Please notice that is possible to convert a Layer codification to a lower number one without any missing information, but not to an higher number one.
 
---CHAPTER II: LAYER 1--
+##CHAPTER II: LAYER 1
 A file formatted following the Layer 1 looks like this
-
+```
 {
 	"layer" : 1,
 	"id": 1764972,					//the id of the card
@@ -54,15 +54,15 @@ A file formatted following the Layer 1 looks like this
 	"str15": "",
 	"str16": ""
 }
-
+```
 This is basically the JSON encode of what is returned with the query "SELECT * FROM datas,texts WHERE datas.id=texts.id" on a .cdb file. This layer should be used when the card is going to be inserted in a .cdb file.  Following is the explanation of each property.
 
->>>--CH.II SUBCH.I: id--		ETC.ETC.
+###CH.II SUBCH.I: id
 TODO[..]
 
---CHAPTER III: LAYER 2--
+##CHAPTER III: LAYER 2
 A file formatted following the Layer 2 looks like this
-
+```
 {
 	"layer" : 2,
 	"id": 1764972,					//the id of the card
@@ -113,74 +113,76 @@ A file formatted following the Layer 2 looks like this
 		7 : false,
 	],
 }
-
+```
 In layer 2, the use of a hierarchy of elements permits to store more informations and in a more intuitive and efficient way. Numeric value are used for values that remain in a certain set (Monster Types, Link Arrows, etc.).
 
 This layer should be used if the card is going to be used by an application or an automatic mechanism. Following is the explanation of each property:
 
->>--CH.III SUBCH.I: id--
+###CH.III SUBCH.I: id
 TODO[..]
 
->>--CH.III SUBCH.IX: race--
+###CH.III SUBCH.IX: race###
 This property shall contain a numeric value that indicates the Type of a monster. The possible values are listed in the following table.
 
-VALUE	TYPE
-0	No one
-1	Aqua
-2	Beast
-3	Beast-Warrior
-4	Creator God
-5	Dinosaur
-6	Divine-Beast
-7	Dragon
-8	Fairy
-9	Fiend
-10	Insect
-11	Machine
-12	Plant
-13	Psychic
-14	Pyro
-15	Reptile
-16	Rock
-17	Sea Serpent
-18	Spellcaster
-19	Thunder
-20	Warrior
-21	Winged Beast
-22	Wyrm
-23	Zombie
-24	Cyberse
-25	Fish
+| VALUE | TYPE |
+|---|---|
+|0|	|No one|
+|1|	Aqua|
+|2|	Beast|
+|3|	Beast-Warrior|
+|4|	Creator God|
+|5|	Dinosaur|
+|6|	Divine-Beast|
+|7|	Dragon|
+|8|	Fairy|
+|9|	Fiend|
+|10|	Insect|
+|11|	Machine|
+|12|	Plant|
+|13|	Psychic|
+|14|	Pyro|
+|15|	Reptile|
+|16|	Rock|
+|17|	Sea Serpent|
+|18|	Spellcaster|
+|19|	Thunder|
+|20|	Warrior|
+|21|	Winged Beast|
+|22|	Wyrm|
+|23|	Zombie|
+|24|	Cyberse|
+|25|	Fish|
 
 In Spell and Trap card usually this property is set to 0, but for cards that can be Summoned as monsters (like "The Prime Monarch") this property can also be set to the Type that the card will have.
 
 Please notice that these values shall stay unchanged over time. Any new Type introduced shall be added with the subsequent numeric value, at the bottom of the list. This means that no order can be assumed for the values of this property.
->>--CH.II SUBCH.X: attribute--
+###CH.II SUBCH.X: attribute--
 This property shall contain a numerica value that indicates the Attribute of a monster. The possible values are listed in the following table.
 
-VALUE	ATTRIBUTE
-0	NO ONE
-1	LIGHT
-2	DARK
-3	EARTH
-4	FIRE
-5	WATER
-6	WIND
-7	DIVINE
+|VALUE|	ATTRIBUTE|
+|---|---|
+|0|	NO ONE|
+|1|	LIGHT|
+|2|	DARK|
+|3|	EARTH|
+|4|	FIRE|
+|5|	WATER|
+|6|	WIND|
+|7|	DIVINE|
 
 
 In Spell and Trap card usually this property is set to 0, but for cards that can be Summoned as monsters (like "The Prime Monarch") this property can also be set to the Attribute that the card will have.
 
 Please notice that these values shall stay unchanged over time. Any new Attribute introduced shall be added with the subsequent numeric value, at the bottom of the list. This means that no order can be assumed for the values of this property.
 
->>--CH.III SUBCH.XI: category--
+###CH.III SUBCH.XI: category--
 TODO[..]
 
---CHAPTER IV: LAYER 3--
-A file formatted following the Layer 2 looks like this
-
+###CHAPTER IV: LAYER 3--
+A file formatted following the Layer 3 looks like this
+```
 {
-	"layer" : 2,
+	"layer" : 3,
 	"id": 1764972,					//the id of the card
 	"region": [
 		"OCG" : {
@@ -289,29 +291,29 @@ A file formatted following the Layer 2 looks like this
 		}
 	}						//describe how custom properties should be formatted and how use them.
 }
-
+```
 This Layer tries to contain every information a human can read on a card, in the way a human would read and memorize it, avoiding numeric values (when possible) and consenting the description of characteristic like rarity or release date. Layer 3 also offer a way to safely add custom property, useful for some kind of custom cards, or for storing unforseen informations.
 
 This Layer should be used when memorizing cards that will be used directly by humans, like in decklists generator, Deck Edit applications, Wikis or unboxing simulators. Following is the descriptions of the properties:
 
->>--CH.IV SUBCH.I : id--
+###CH.IV SUBCH.I : id
 TODO[..]
 
->>--CH.IV SUBCH.XVI : expand--
-"expand" property shall define custom properties and their content in a way that documentation about them can be automatically generated, and the properties can have at least a limited format validation.
+###CH.IV SUBCH.XVI : expand
+__expand__ property shall define custom properties and their content in a way that documentation about them can be automatically generated, and the properties can have at least a limited format validation.
 
 The property is an Object, in which each element has as index the name of the custom property described, and as value an Object with the following properties:
 
-* name: is the title of the property. Can be different from the actual property name, or not being present at all.
-* type: the type of value that the property can have. This can be: int, float, String, Array, Object. Should this property value be "Object", another property "expand", formatted the same way this subchapter describe, should be appended to the current Object, in order to describe the properties in a gerarchical way.
-* description: a description of what the properties does or serve for
-* expand: only needed if the "type" is set to "Object".
+ * __name__: is the title of the property. Can be different from the actual property name, or not being present at all.
+ * __type__: the type of value that the property can have. This can be: int, float, String, Array, Object. Should this property value be "Object", another property "expand", formatted the same way this subchapter describe, should be appended to the current Object, in order to describe the properties in a gerarchical way.
+ * __description__: a description of what the properties does or serve for
+ * __expand__: only needed if the "type" is set to "Object".
 
---CHAPTER V : Set of cards, IBSF--
+##CHAPTER V : Set of cards, IBSF
 The chapters before only specify how to format a single card. If there's the need to memorize in a single file more than one, the following format should be used.
 
-A IBSF (International Board Set Format) file shall be composed by a single JSON object formatted this way:
-
+A __IBSF__ (International Board Set Format) file shall be composed by a single JSON object formatted this way:
+```
 {
 	"name" : "MIGHTY"		//a name for the set (not mandatory)
 	"layer" : 1,			//the layer that cards memorized shall use
@@ -329,17 +331,17 @@ A IBSF (International Board Set Format) file shall be composed by a single JSON 
 		...
 	]				//an array of IBCF formatted cards that shall use the layer specified by the Set
 }
-
+```
 Please notice that cards memorized in a IBSF Set can avoid specify their Layer, since it's declared by the Set itself.
 
---CHAPTER VI: File extensions and MIME--
+##CHAPTER VI: File extensions and MIME
 IBCF files should be named using ".ibcf" as file extension, and the MIME type "text/ib-card-format" can be used to describe them.
 
 IBSF files should be named using ".ibsf" as file extension, and the MIME type "text/ib-setcard-format" can be used to describe them.
 
---APPENDIX--
+##APPENDIX
 
-LICENSE
+##LICENSE
 
 
 

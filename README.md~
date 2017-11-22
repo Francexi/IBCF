@@ -177,10 +177,10 @@ Please notice that these values shall stay unchanged over time. Any new Attribut
 TODO[..]
 
 --CHAPTER IV: LAYER 3--
-A file formatted following the Layer 3 looks like this
+A file formatted following the Layer 2 looks like this
 
 {
-	"layer" : 3,
+	"layer" : 2,
 	"id": 1764972,					//the id of the card
 	"region": [
 		"OCG" : {
